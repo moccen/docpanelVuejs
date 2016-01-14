@@ -123,7 +123,7 @@
 			buildContent(nodeclicked.nodes, nodeclicked.href);
 			
 		} else {
-			alert("��Ŀ¼��û���ļ���");
+			alert("updateContent come across error!");
 		}
 	}
 

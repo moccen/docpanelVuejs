@@ -3,6 +3,7 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 	var _contentData = {};
 	module.init = function(contentData) {
 		this._contentData = contentData;
+		
 		var vmContent = new Vue({
 			el: "#content",
 			data: {
@@ -36,9 +37,13 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 						default:
 							return "./img/folder.png";
 					}
+				},
+				contentClickHandler:function(nodeId){
+					alert("the node ID is "+nodeId);
 				}
 			}
 		});
+		 
 
 		var vmAccordion = new Vue({
 			el: "#leftNavigation",
