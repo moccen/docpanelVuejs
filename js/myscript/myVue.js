@@ -3,7 +3,17 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 	var _contentData = {};
 	module.init = function(contentData) {
 		this._contentData = contentData;
-		
+
+//		var DocThumbComponent = Vue.extend({
+//			template: '<img style="width:80px;height:65px" v-bind:src="getSrc(file.fileType,file.href)" v-on:click="contentClickHandler(file.id)"/>'
+//		});
+//
+//		Vue.component('thumb-component', DocThumbComponent);
+//
+//		new Vue({
+//			el: '#content'
+//		});
+
 		var vmContent = new Vue({
 			el: "#content",
 			data: {
@@ -38,12 +48,14 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 							return "./img/folder.png";
 					}
 				},
-				contentClickHandler:function(nodeId){
-					alert("the node ID is "+nodeId);
+				contentClickHandler: function(nodeId) {
+					alert("the node ID is " + nodeId);
 				}
-			}
+			},
+			template: '<img style="width:80px;height:65px" v-bind:src="getSrc(file.fileType,file.href)" v-on:click="contentClickHandler(file.id)"/>'
+
 		});
-		 
+
 
 		var vmAccordion = new Vue({
 			el: "#leftNavigation",
@@ -51,11 +63,17 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 				files: contentData,
 				items: contentData.nodes
 			},
+			compiled: function() {
+				var accordion = new Accordion($('#leftNavigation'), false);
+			}
 		});
-		Vue.nextTick(function() {
-			var accordion = new Accordion($('#leftNavigation'), false);
+//		Vue.nextTick(function() {
+//			var accordion = new Accordion($('#leftNavigation'), false);
+//		});
 
-		})
+
+
+
 	}
 
 	return module;
