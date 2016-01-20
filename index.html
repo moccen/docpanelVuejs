@@ -15,7 +15,7 @@
 			<div id="content">
 				<div class="row">
 					<template v-for="file in files">
-						<div class="col-sm-6 col-md-3">
+						<div class="col-sm-6 col-md-2">
 							<div style="padding:0px;cursor:pointer;width:80px;height:65px;margin-left:auto;margin-right:auto;text-align:center;box-shadow:3px 4px 3px" class="thumbnail">
 								<img style="width:80px;height:65px" v-bind:src="getSrc(file.fileType,file.href)" v-on:click="contentClickHandler(file.id)" />
 							</div>
@@ -43,47 +43,48 @@
 
 		<div id="docPage">
 			<div id="contentWrapper" class="container-fluid">
-				<div id="contentLeft" :files="files">
-					<accord-item id="accord" :files="files"></accord-item>
-				</div>
-				<div id="contentRight">
-					<div class="row">
-						<div class="col-xs-11 col-md-11">
-							<ol class="breadcrumb" id="breadcrumb" style="min-height:38px;"></ol>
-						</div>
-						<div class="col-xs-1 col-md-1" style="padding-left:0px">
-							<button id="back2Map" class="btn btn-primary" onclick="parent.window.back2Map()">返回地图
-							</button>
-						</div>
+				<root-item>
+					<div id="contentLeft">
+						<accord-item id="accord" :files="files"></accord-item>
 					</div>
-					<div id="filesPanel" class="panel panel-default">
-						<div class="panel-heading">
-							<div class="panel-title row">
-								<div class="col-xs-9 col-sm-9">
-									<div class="input-group input-group-sm">
-										<input id="searchArea" type="text" class="form-control" placeholder="快速查询" aria-describedby="sizing-addon3">
-										<span class="input-group-btn">
-                                    <button id="goBtn" class="btn btn-primary" type="button">Go!</button>
-                                </span>
+					<div id="contentRight">
+						<div class="row">
+							<div class="col-xs-11 col-md-11">
+								<ol class="breadcrumb" id="breadcrumb" style="min-height:38px;"></ol>
+							</div>
+							<div class="col-xs-1 col-md-1" style="padding-left:0px">
+								<button id="back2Map" class="btn btn-primary" onclick="parent.window.back2Map()">返回地图
+								</button>
+							</div>
+						</div>
+						<div id="filesPanel" class="panel panel-default">
+							<div class="panel-heading">
+								<div class="panel-title row">
+									<div class="col-xs-9 col-sm-9">
+										<div class="input-group input-group-sm">
+											<input id="searchArea" type="text" class="form-control" placeholder="快速查询" aria-describedby="sizing-addon3">
+											<span class="input-group-btn">
+                                    			<button id="goBtn" class="btn btn-primary" type="button">Go!</button>
+                                			</span>
+										</div>
 									</div>
-								</div>
-								<div class="col-xs-3 col-sm-3 pull-right">
-									<div class="btn-group-sm" role="group">
-										<button type="button" id="backBtn" class="btn btn-primary">返回上一级</button>
+									<div class="col-xs-3 col-sm-3 pull-right">
+										<div class="btn-group-sm" role="group">
+											<button type="button" id="backBtn" class="btn btn-primary">返回上一级</button>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div id="progress" class="progress" style="height: 10px">
-							<div class="progress-bar" style="height: 10px"></div>
-						</div>
-						<div class="panel-body">
-							<thumb-item id="content" :files="files"></thumb-item>
+							<div id="progress" class="progress" style="height: 10px">
+								<div class="progress-bar" style="height: 10px"></div>
+							</div>
+							<div class="panel-body">
+								<thumb-item id="content" :files="files"></thumb-item>
+							</div>
 						</div>
 					</div>
-				</div>
+				</root-item>
 			</div>
 		</div>
 	</body>
-
 </html>

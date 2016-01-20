@@ -4,9 +4,9 @@ define("myVueComponent", ["vue", "jquery"], function(Vue, $) {
 	module.init = function(contentData) {
 		this._contentData = contentData;
 
-		Vue.component('thumb-item',{
-			template:'#thumb-template',
-			props:['files'],
+		var thumbComp = Vue.extend({
+			template: '#thumb-template',
+			props: ['files'],
 			methods: {
 				getSrc: function(fileType, src) {
 					switch (fileType) {
@@ -32,33 +32,49 @@ define("myVueComponent", ["vue", "jquery"], function(Vue, $) {
 					alert("the node ID is " + nodeId);
 				}
 			},
-		});
-		
-		var ctnt = new Vue({
-			el:".panel-body",
-			data:{
-				files:this._contentData
-			}
-		});				
-
-		Vue.component('accord-item',{
-			template:'#accord-template',
-			props:{
-				files:Array
-			},
-		});
-
-		var vmAccordion = new Vue({
-			el: "#contentLeft",
-			data: {
-				files: contentData,
-			},
 			ready: function() {
 				var accordion = new Accordion($('#leftNavigation'), false);
 			}
 		});
 
-	}
+		var ctntComp = Vue.extend({
+			template: '#accord-template',
+			props: {
+				files: Array
+			},
+		});
 
+		var rootComp = Vue.extend({
+			template:'',
+			components: {
+				'thumb-item': thumbComp,
+				'accord-item': ctntComp,
+			}
+		});
+
+		Vue.component('root-item', rootComp);
+
+		new Vue({
+			el: '#contentWrapper'
+		});
+
+		//		var ctnt = new Vue({
+		//			el: ".panel-body",
+		//			data: {
+		//				files: this._contentData
+		//			}
+		//		});
+		//
+		//		var vmAccordion = new Vue({
+		//			el: "#contentLeft",
+		//			data: {
+		//				files: contentData,
+		//			},
+		//			ready: function() {
+		//				var accordion = new Accordion($('#leftNavigation'), false);
+		//			}
+		//		});
+
+	}
 	return module;
 })
