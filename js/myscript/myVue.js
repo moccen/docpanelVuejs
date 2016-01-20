@@ -53,6 +53,8 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 			}
 		});
 		
+		
+		
 //		var vmContent = new Vue({
 //			el: "#content",
 //			data: {

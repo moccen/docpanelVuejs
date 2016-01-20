@@ -8,7 +8,8 @@ require.config({
 		accordion: "vendors/accordion/accordion",
 		bootstrap: "vendors/bootstrap/bootstrap",
 		myVue: "myscript/myVue",
-		vue: "vendors/vue"
+		vue: "vendors/vue",
+		myVueComponent:'myscript/myVueComponent'
 	},
 	shim: {
 		underscore: {
@@ -880,7 +881,7 @@ jsonData = [{
 	"isFlder": true
 }];
 
-require(["jquery", "docPager", "myVue"], function($, docPager, myVue) {
+require(["jquery", "docPager", "myVueComponent"], function($, docPager, myVue) {
 
 	$("#backBtn").click(function() {
 		var backNodeId = $("#breadcrumb").children()
