@@ -11,6 +11,19 @@
 	</head>
 
 	<body>
+		<script type="x-template" id="thumb-template">
+			<div id="content">
+				<div class="row">
+					<template v-for="file in files">
+						<div class="col-sm-6 col-md-3">
+							<div style="padding:0px;cursor:pointer;width:80px;height:65px;margin-left:auto;margin-right:auto;text-align:center;box-shadow:3px 4px 3px" class="thumbnail">
+								<img style="width:80px;height:65px" v-bind:src="getSrc(file.fileType,file.href)" v-on:click="contentClickHandler(file.id)" />
+							</div>
+						</div>
+					</template>
+				</div>
+			</div>
+		</script>
 		<div id="docPage">
 			<div id="contentWrapper" class="container-fluid">
 				<div id="contentLeft">
@@ -21,7 +34,7 @@
 								<i class="glyphicon glyphicon-chevron-down"></i>
 							</div>
 							<ul class="submenu">
-								<li v-for="item in items">
+								<li v-for="item in files">
 									<a href="#">{{item.text}}</a>
 								</li>
 							</ul>
@@ -39,7 +52,7 @@
 							</button>
 						</div>
 					</div>
-					<div id=filesPanel class="panel panel-default">
+					<div id="filesPanel" class="panel panel-default">
 						<div class="panel-heading">
 							<div class="panel-title row">
 								<div class="col-xs-9 col-sm-9">
@@ -60,25 +73,28 @@
 						<div id="progress" class="progress" style="height: 10px">
 							<div class="progress-bar" style="height: 10px"></div>
 						</div>
-						<div class="panel-body">
-							<div id="content">
-								<div class="row">
-									<template v-for="file in files">
-										<div class="col-sm-6 col-md-3">
-											<div style="padding:0px;cursor:pointer;width:80px;height:65px;margin-left:auto;margin-right:auto;text-align:center;box-shadow:3px 4px 3px" class="thumbnail">
-												<!--<thumb-component></thumb-component>-->
-													
-												<!--<img style="width:80px;height:65px" v-bind:src="getSrc(file.fileType,file.href)" v-on:click="contentClickHandler(file.id)"/>-->
-												<!--<img style="width:80px;height:65px" src="{{nailSrc(file.fileType,file.href))}}" />-->
+						<div class="panel-body" >
+							<thumb-item id="content" :files="files"></thumb-item>
+							<script type="application/x-template">
+								<div id="content">
+									<div class="row">
+										<template v-for="file in files">
+											<div class="col-sm-6 col-md-3">
+												<div style="padding:0px;cursor:pointer;width:80px;height:65px;margin-left:auto;margin-right:auto;text-align:center;box-shadow:3px 4px 3px" class="thumbnail">
+													<!--<thumb-component></thumb-component>-->
+													<!--<img style="width:80px;height:65px" v-bind:src="getSrc(file.fileType,file.href)" v-on:click="contentClickHandler(file.id)"/>-->
+													<!--<img style="width:80px;height:65px" src="{{nailSrc(file.fileType,file.href))}}" />-->
+												</div>
 											</div>
-										</div>
-									</template>
+										</template>
+									</div>
 								</div>
-							</div>
+							</script>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</body>
+
 </html>
