@@ -2,13 +2,9 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 	var module = {};
 	var _contentData = {};
 	module.init = function(contentData) {
-<<<<<<< HEAD
-		this._contentData = contentData;
-		Vue.config.debug = true;
-=======
+
 		this._contentData = contentData[0].nodes;
 
->>>>>>> 3f26ecb7417c21a999a0dbfd0b84a47cae5b814d
 		var thumbComp = Vue.extend({
 			template: '#thumb-template',
 			props: ['files'],
@@ -60,12 +56,7 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 			}
 		});
 
-<<<<<<< HEAD
-		var rootComp = Vue.extend({
-			components: {
-				'thumb-item': thumbComp,
-				'accord-item': ctntComp,
-=======
+
 		var breadcrumbComp = Vue.extend({
 			template: '#breadcrumb-template',
 			props: ['paths'],
@@ -80,7 +71,6 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 					//					this.$parent.paths.push(nodeId);
 					this.paths.push(nodeId);
 				}
->>>>>>> 3f26ecb7417c21a999a0dbfd0b84a47cae5b814d
 			}
 		});
 
