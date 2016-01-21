@@ -11,21 +11,22 @@
 	</head>
 
 	<body>
-		<script type="x-template" id="thumb-template">
+		<!--文件内容面板template-->
+		<template id="thumb-template">
 			<div id="content">
 				<div class="row">
 					<template v-for="file in files">
 						<div class="col-sm-6 col-md-2">
 							<div style="padding:0px;cursor:pointer;width:80px;height:65px;margin-left:auto;margin-right:auto;text-align:center;box-shadow:3px 4px 3px" class="thumbnail">
-								<img style="width:80px;height:65px" v-bind:src="getSrc(file.fileType,file.href)" v-on:click="contentClickHandler(file.id)" />
+								<img style="width:80px;height:65px" :src="getSrc(file.fileType,file.href)" @click="notifyBreadcrumb(file)" />
 							</div>
 						</div>
 					</template>
 				</div>
 			</div>
-		</script>
-
-		<script type="x-template" id="accord-template">
+		</template>
+		<!--左侧手风琴导航面板template-->
+		<template id="accord-template">
 			<ul id="leftNavigation" class="accordion">
 				<li>
 					<div class="link">
@@ -39,18 +40,30 @@
 					</ul>
 				</li>
 			</ul>
-		</script>
-
+		</template>
+		<!--路径导航template-->
+		<template id='breadcrumb-template'>
+			<div class="col-xs-11 col-md-11">
+				<ol class="breadcrumb" id="breadcrumb" style="min-height:38px;">
+					<template v-for='path in paths' track-by="$index">
+						<li>
+							<a href="#" @change-path='testDispatch(path)' style="color:#3878D1">{{path}}</a>
+						</li>
+					</template>
+				</ol>
+			</div>
+		</template>
+		
 		<div id="docPage">
 			<div id="contentWrapper" class="container-fluid">
-				<root-item>
+				<!--<root-item>-->
 					<div id="contentLeft">
 						<accord-item id="accord" :files="files"></accord-item>
 					</div>
 					<div id="contentRight">
 						<div class="row">
-							<div class="col-xs-11 col-md-11">
-								<ol class="breadcrumb" id="breadcrumb" style="min-height:38px;"></ol>
+							<div id="breadcrumb">
+								<breadcrumb-item v-ref:breadcrumb :paths.sync='paths'></breadcrumb-item>
 							</div>
 							<div class="col-xs-1 col-md-1" style="padding-left:0px">
 								<button id="back2Map" class="btn btn-primary" onclick="parent.window.back2Map()">返回地图
@@ -83,8 +96,9 @@
 							</div>
 						</div>
 					</div>
-				</root-item>
+				<!--</root-item>-->
 			</div>
 		</div>
 	</body>
+
 </html>
