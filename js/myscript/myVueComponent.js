@@ -3,7 +3,7 @@ define("myVueComponent", ["vue", "jquery"], function(Vue, $) {
 	var _contentData = {};
 	module.init = function(contentData) {
 		this._contentData = contentData;
-
+		Vue.config.debug = true;
 		var thumbComp = Vue.extend({
 			template: '#thumb-template',
 			props: ['files'],
@@ -45,7 +45,6 @@ define("myVueComponent", ["vue", "jquery"], function(Vue, $) {
 		});
 
 		var rootComp = Vue.extend({
-			template:'',
 			components: {
 				'thumb-item': thumbComp,
 				'accord-item': ctntComp,
