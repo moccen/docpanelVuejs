@@ -1,8 +1,8 @@
-define("myVueComponent", ["vue", "jquery"], function(Vue, $) {
+define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 	var module = {};
 	var _contentData = {};
 	module.init = function(contentData) {
-		this._contentData = contentData;
+		this._contentData = contentData[0].nodes;
 
 		var thumbComp = Vue.extend({
 			template: '#thumb-template',
@@ -28,52 +28,72 @@ define("myVueComponent", ["vue", "jquery"], function(Vue, $) {
 							return "./img/folder.png";
 					}
 				},
-				contentClickHandler: function(nodeId) {
-					alert("the node ID is " + nodeId);
+				contentClickHandler: function(item) {
+					var nodeId = item.id;
+					var isflder = item.isFlder;
+					var paths = this.$parent.paths;
+					this.constructPath(nodeId);
+					alert("the node ID is " + nodeId + " node is folder:" + paths.length);
+				},
+				constructPath: function(nodeId) {
+					this.$parent.paths.push(nodeId);
+				},
+				notifyBreadcrumb: function(node) {
+					var nodeId = node.id;
+					this.$dispatch('change-path', nodeId);
 				}
+			},
+
+		});
+
+		var accordComp = Vue.extend({
+			template: '#accord-template',
+			props: ['files'],
+			events: {
+				'update-bread': function(nodeId) {
+					alert('change-path fired from accordComp! the node id is ' + nodeId);
+				}
+			}
+		});
+
+		var breadcrumbComp = Vue.extend({
+			template: '#breadcrumb-template',
+			props: ['paths'],
+			methods: {
+				updateData: function(nodeId) {
+					alert("the breadcrumb id is " + nodeId);
+				}
+			},
+			events: {
+				'update-bread': function(nodeId) {
+					alert('change-path fired from breadcrumbComp! the node id is ' + nodeId);
+					this.$parent.paths.push(nodeId);
+				}
+			}
+		});
+
+
+		new Vue({
+			el: '#contentWrapper',
+			data: {
+				files: this._contentData,
+				paths: [1, 2]
 			},
 			ready: function() {
 				var accordion = new Accordion($('#leftNavigation'), false);
-			}
-		});
-
-		var ctntComp = Vue.extend({
-			template: '#accord-template',
-			props: {
-				files: Array
 			},
-		});
-
-		var rootComp = Vue.extend({
-			template:'',
-			components: {
-				'thumb-item': thumbComp,
-				'accord-item': ctntComp,
+			events: {
+				'change-path': function(nodeId) {
+					this.$broadcast('update-bread', nodeId);
+					//					this.$refs.breadcrumb.updateData(nodeId);
+				}
+			},
+			components:{
+				'thumb-item':thumbComp,
+				'accord-item':accordComp,
+				'breadcrumb-item':breadcrumbComp
 			}
 		});
-
-		Vue.component('root-item', rootComp);
-
-		new Vue({
-			el: '#contentWrapper'
-		});
-
-		//		var ctnt = new Vue({
-		//			el: ".panel-body",
-		//			data: {
-		//				files: this._contentData
-		//			}
-		//		});
-		//
-		//		var vmAccordion = new Vue({
-		//			el: "#contentLeft",
-		//			data: {
-		//				files: contentData,
-		//			},
-		//			ready: function() {
-		//				var accordion = new Accordion($('#leftNavigation'), false);
-		//			}
-		//		});
 
 	}
 	return module;

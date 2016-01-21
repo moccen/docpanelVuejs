@@ -883,25 +883,25 @@ jsonData = [{
 
 require(["jquery", "docPager", "myVueComponent"], function($, docPager, myVue) {
 
-	$("#backBtn").click(function() {
-		var backNodeId = $("#breadcrumb").children()
-			.children("a:last").attr("nodeId");
-		if (backNodeId)
-			docPager.updateData(backNodeId);
-	});
-	$("#searchArea").bind("keyup", function(e) {
-		if (e.keyCode === 13) {
-			window.docPager.search(document.getElementById("searchArea").value);
-		}
-	});
-	$("#goBtn").bind("click", function() {
-		window.docPager.search(document.getElementById("searchArea").value);
-	});
+//	$("#backBtn").click(function() {
+//		var backNodeId = $("#breadcrumb").children()
+//			.children("a:last").attr("nodeId");
+//		if (backNodeId)
+//			docPager.updateData(backNodeId);
+//	});
+//	$("#searchArea").bind("keyup", function(e) {
+//		if (e.keyCode === 13) {
+//			window.docPager.search(document.getElementById("searchArea").value);
+//		}
+//	});
+//	$("#goBtn").bind("click", function() {
+//		window.docPager.search(document.getElementById("searchArea").value);
+//	});
 
 
-	//	docPager.init(jsonData);
-	//	docPager.updateAccord();
+//		docPager.init(jsonData);
+//		docPager.updateAccord();
 
-	myVue.init(jsonData[0].nodes);
+	myVue.init(jsonData);
 
 })
