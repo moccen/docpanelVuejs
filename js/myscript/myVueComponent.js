@@ -38,12 +38,11 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 				constructPath: function(nodeId) {
 					this.$parent.paths.push(nodeId);
 				},
-				notifyBreadcrumb: function(node) {
-					var nodeId = node.id;
-					this.$dispatch('change-path', nodeId);
+				updateBread:function(nodeId){
+					this.$dispatch('update-fromThumb',nodeId);
 				}
 			},
-
+			
 		});
 
 		var accordComp = Vue.extend({
@@ -84,8 +83,10 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 				var accordion = new Accordion($('#leftNavigation'), false);
 			},
 			events: {
-				'change-path': function(nodeId) {
-					this.$broadcast('update-bread', nodeId);
+				'update-fromThumb': function(nodeId) {
+					alert('change-paths from parent!');
+					this.handleIt(nodeId);
+					//this.$broadcast('update-bread', nodeId);
 					//					this.$refs.breadcrumb.updateData(nodeId);
 				}
 			},
@@ -95,13 +96,13 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 				'breadcrumb-item': breadcrumbComp
 			},
 			methods: {
-				testDispatch: function(node) {
-					var nodeId = node.id;
-					this.$broadcast('update-bread', nodeId);
+				handleIt: function(node) {
+					alert('testDispatch is fired!');
+					//var nodeId = node.id;
+					this.$broadcast('update-bread', node);
 				}
 			}
 		});
-
 	}
 	return module;
 })
