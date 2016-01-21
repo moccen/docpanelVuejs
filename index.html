@@ -47,7 +47,7 @@
 				<ol class="breadcrumb" id="breadcrumb" style="min-height:38px;">
 					<template v-for='path in paths' track-by="$index">
 						<li>
-							<a href="#" @click="updateData(path.id)" style="color:#3878D1">{{path}}</a>
+							<a href="#" @change-path='testDispatch(path)' style="color:#3878D1">{{path}}</a>
 						</li>
 					</template>
 				</ol>
@@ -63,7 +63,7 @@
 					<div id="contentRight">
 						<div class="row">
 							<div id="breadcrumb">
-								<breadcrumb-item v-ref:breadcrumb :paths='paths'></breadcrumb-item>
+								<breadcrumb-item v-ref:breadcrumb :paths.sync='paths'></breadcrumb-item>
 							</div>
 							<div class="col-xs-1 col-md-1" style="padding-left:0px">
 								<button id="back2Map" class="btn btn-primary" onclick="parent.window.back2Map()">返回地图

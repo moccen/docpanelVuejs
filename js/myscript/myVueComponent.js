@@ -14,7 +14,6 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 						case "unknown":
 							return "./img/file.png";
 							break;
-
 						case "dwg":
 							return "./img/cad.png";
 							break;
@@ -67,11 +66,11 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 			events: {
 				'update-bread': function(nodeId) {
 					alert('change-path fired from breadcrumbComp! the node id is ' + nodeId);
-					this.$parent.paths.push(nodeId);
+					//					this.$parent.paths.push(nodeId);
+					this.paths.push(nodeId);
 				}
 			}
 		});
-
 
 		new Vue({
 			el: '#contentWrapper',
@@ -88,10 +87,16 @@ define("myVueComponent", ["vue", "jquery", "underscore"], function(Vue, $, _) {
 					//					this.$refs.breadcrumb.updateData(nodeId);
 				}
 			},
-			components:{
-				'thumb-item':thumbComp,
-				'accord-item':accordComp,
-				'breadcrumb-item':breadcrumbComp
+			components: {
+				'thumb-item': thumbComp,
+				'accord-item': accordComp,
+				'breadcrumb-item': breadcrumbComp
+			},
+			methods: {
+				testDispatch: function(node) {
+					var nodeId = node.id;
+					this.$broadcast('update-bread', nodeId);
+				}
 			}
 		});
 
