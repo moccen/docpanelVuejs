@@ -25,17 +25,12 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 						case "text":
 						case "unknown":
 							return "./img/file.png";
-							break;
-
 						case "dwg":
 							return "./img/cad.png";
-							break;
 						case "video":
 							return "./img/video.png";
-							break;
 						case "pdf":
 							return "./img/pdf.png";
-							break;
 						default:
 							return "./img/folder.png";
 					}
@@ -45,16 +40,16 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 				}
 			},
 		});
-		
+
 		var ctnt = new Vue({
 			el:".panel-body",
 			data:{
 				files:this._contentData
 			}
 		});
-		
-		
-		
+
+
+
 //		var vmContent = new Vue({
 //			el: "#content",
 //			data: {
@@ -112,7 +107,7 @@ define("myVue", ["vue", "jquery"], function(Vue, $) {
 //			var accordion = new Accordion($('#leftNavigation'), false);
 //		});
 
-	}
+	};
 
 	return module;
-})
+});

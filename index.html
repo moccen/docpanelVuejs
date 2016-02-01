@@ -1,105 +1,105 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8" />
-		<link rel="stylesheet" href="js/vendors/bootstrap/css/bootstrap-cerulean.min.css" />
-		<link href="js/vendors/jquery-vertical-navigation/css/app.css" rel="stylesheet" />
-		<link rel="stylesheet" href="js/vendors/accordion/accordion.css" />
-		<script type="text/javascript" src="js/vendors/require.js" data-main="js/myscript/main"></script>
-		<title>DocsPage</title>
-	</head>
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="js/vendors/bootstrap/css/bootstrap-cerulean.min.css" />
+	<link href="js/vendors/jquery-vertical-navigation/css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" href="js/vendors/accordion/accordion.css" />
+	<script type="text/javascript" src="js/vendors/require.js" data-main="js/myscript/main"></script>
+	<title>DocsPage</title>
+</head>
 
-	<body>
-		<!--文件内容面板template-->
-		<template id="thumb-template">
-			<div id="content">
-				<div class="row">
-					<template v-for="file in files">
-						<div class="col-sm-6 col-md-2">
-							<div style="padding:0px;cursor:pointer;width:80px;height:65px;margin-left:auto;margin-right:auto;text-align:center;box-shadow:3px 4px 3px" class="thumbnail">
-								<img style="width:80px;height:65px" :src="getSrc(file.fileType,file.href)" @click='updateBread(file.id)' />
-							</div>
-						</div>
-					</template>
-				</div>
-			</div>
-		</template>
-		<!--左侧手风琴导航面板template-->
-		<template id="accord-template">
-			<ul id="leftNavigation" class="accordion">
-				<li>
-					<div class="link">
-						蓄滞洪区文档
-						<i class="glyphicon glyphicon-chevron-down"></i>
-					</div>
-					<ul class="submenu">
-						<li v-for="item in files">
-							<a href="#">{{item.text}}</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</template>
-		<!--路径导航template-->
-		<template id='breadcrumb-template'>
-			<div class="col-xs-11 col-md-11">
-				<ol class="breadcrumb" id="breadcrumb" style="min-height:38px;">
-					<template v-for='path in paths' track-by="$index">
-						<li>
-							<a href="#" style="color:#3878D1">{{path}}</a>
-						</li>
-					</template>
-				</ol>
-			</div>
-		</template>
-
-		<!--主页面-->
-		<div id="docPage">
-			<div id="contentWrapper" class="container-fluid">
-				<!--<root-item>-->
-				<div id="contentLeft">
-					<accord-item id="accord" :files="files"></accord-item>
-				</div>
-				<div id="contentRight">
-					<div class="row">
-						<div id="breadcrumb">
-							<breadcrumb-item v-ref:breadcrumb :paths.sync='paths'></breadcrumb-item>
-						</div>
-						<div class="col-xs-1 col-md-1" style="padding-left:0px">
-							<button id="back2Map" class="btn btn-primary" onclick="parent.window.back2Map()">返回地图
-							</button>
+<body>
+	<!--文件内容面板template-->
+	<template id="thumb-template">
+		<div id="content">
+			<div class="row">
+				<template v-for="file in files">
+					<div class="col-sm-4 col-md-2">
+						<div style="padding:0px;cursor:pointer;width:80px;height:65px;margin-left:auto;margin-right:auto;text-align:center;box-shadow:3px 4px 3px" class="thumbnail">
+							<img style="width:80px;height:65px" :src="getSrc(file.fileType,file.href)" @click='updateBread(file)' />
 						</div>
 					</div>
-					<div id="filesPanel" class="panel panel-default">
-						<div class="panel-heading">
-							<div class="panel-title row">
-								<div class="col-xs-9 col-sm-9">
-									<div class="input-group input-group-sm">
-										<input id="searchArea" type="text" class="form-control" placeholder="快速查询" aria-describedby="sizing-addon3">
-										<span class="input-group-btn">
-                                    			<button id="goBtn" class="btn btn-primary" type="button">Go!</button>
-                                			</span>
-									</div>
-								</div>
-								<div class="col-xs-3 col-sm-3 pull-right">
-									<div class="btn-group-sm" role="group">
-										<button type="button" id="backBtn" class="btn btn-primary">返回上一级</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="progress" class="progress" style="height: 10px">
-							<div class="progress-bar" style="height: 10px"></div>
-						</div>
-						<div class="panel-body">
-							<thumb-item id="content" :files="files"></thumb-item>
-						</div>
-					</div>
-				</div>
-				<!--</root-item>-->
+				</template>
 			</div>
 		</div>
-	</body>
+	</template>
+	<!--左侧手风琴导航面板template-->
+	<template id="accord-template">
+		<ul id="leftNavigation" class="accordion">
+			<li>
+				<div class="link">
+					蓄滞洪区文档
+					<i class="glyphicon glyphicon-chevron-down"></i>
+				</div>
+				<ul class="submenu">
+					<li v-for="item in files">
+						<a href="#">{{item.text}}</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</template>
+	<!--路径导航template-->
+	<template id='breadcrumb-template'>
+		<div class="col-xs-11 col-md-11">
+			<ol class="breadcrumb" id="breadcrumb" style="min-height:38px;">
+				<template v-for='path in paths' track-by="$index">
+					<li>
+						<a href="#" style="color:#3878D1">{{path}}</a>
+					</li>
+				</template>
+			</ol>
+		</div>
+	</template>
+
+	<!--主页面-->
+	<div id="docPage">
+		<div id="contentWrapper" class="container-fluid">
+			<!--<root-item>-->
+			<div id="contentLeft">
+				<accord-item id="accord" :files="files"></accord-item>
+			</div>
+			<div id="contentRight">
+				<div class="row">
+					<div id="breadcrumb">
+						<breadcrumb-item v-ref:breadcrumb :paths.sync='paths'></breadcrumb-item>
+					</div>
+					<div class="col-xs-1 col-md-1" style="padding-left:0px">
+						<button id="back2Map" class="btn btn-primary" @click="parent.window.back2Map()">返回地图
+						</button>
+					</div>
+				</div>
+				<div id="filesPanel" class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-title row">
+							<div class="col-xs-9 col-sm-9">
+								<div class="input-group input-group-sm">
+									<input id="searchArea" type="text" class="form-control" placeholder="快速查询" aria-describedby="sizing-addon3">
+									<span class="input-group-btn">
+												<button id="goBtn" class="btn btn-primary" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+							<div class="col-xs-3 col-sm-3 pull-right">
+								<div class="btn-group-sm" role="group">
+									<button type="button" id="backBtn" class="btn btn-primary" @click="backBtnHandler()">返回上一级</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="progress" class="progress" style="height: 10px">
+						<div class="progress-bar" style="height: 10px"></div>
+					</div>
+					<div class="panel-body">
+						<thumb-item id="content" :files="files"></thumb-item>
+					</div>
+				</div>
+			</div>
+			<!--</root-item>-->
+		</div>
+	</div>
+</body>
 
 </html>
